@@ -1,7 +1,8 @@
-import Signup from "./pages/signup";
-import Login from "./pages/login";
+
 export default function Home() {
   return (
-<Login />
-  );
+    <div>
+      <h1>Welcome to the Home Page</h1>
+    </div>
+    );
 }
