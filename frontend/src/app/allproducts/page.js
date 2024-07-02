@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProductData } from '@/app/redux/actions/productActions';
+import { fetchAllProducts } from '@/app/redux/actions/productActions';
 import Navbar from '../components/Navbar';
 import ProductGrid from '../components/ProductGrid';
 
@@ -10,7 +10,7 @@ const AllProducts = () => {
   const { products, loading } = useSelector((state) => state.products); // Ensure 'products' matches your rootReducer
 
   useEffect(() => {
-    dispatch(getProductData());
+    dispatch(fetchAllProducts());
   }, [dispatch]);
 
   if (loading) {
