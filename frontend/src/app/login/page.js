@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
-  
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -28,7 +29,7 @@ const Login = () => {
         alert('Logged in successfully');   // use instead of react-hot-toast
         // Store the token in local storage or context for further use
         localStorage.setItem('token', result.data);   //use cookies
-        
+        router.push('/');   // redirect to home page
       } else {
         alert(result.message);
       }

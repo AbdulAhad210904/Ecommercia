@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import Navbar from '../../components/Navbar';
 import ProductGrid from '../../components/ProductGrid';
 import { fetchProductsByCategory } from '../../redux/actions/productActions';
+import requireAuth from '../../../../requireAuth';
+
 
 const ProductFilter = ({params: {categoryId}}) => {
   const router = useRouter();
@@ -40,4 +42,4 @@ const ProductFilter = ({params: {categoryId}}) => {
   );
 };
 
-export default ProductFilter;
+export default requireAuth(ProductFilter);

@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllProducts } from '@/app/redux/actions/productActions';
 import Navbar from '../components/Navbar';
 import ProductGrid from '../components/ProductGrid';
+import requireAuth from '../../../requireAuth';
+
 
 const AllProducts = () => {
   const dispatch = useDispatch();
@@ -35,4 +37,4 @@ const AllProducts = () => {
   );
 };
 
-export default AllProducts;
+export default requireAuth(AllProducts);
