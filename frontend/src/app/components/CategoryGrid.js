@@ -16,6 +16,7 @@ const CategoryGrid = ({ title, categories, onClick }) => {
                     alt={category.name}
                     className="h-full w-full object-cover object-center"
                   />
+                  
                 </div>
                 <div className="mt-4">
                   <h3 className="text-sm font-medium text-gray-900">{category.name}</h3>
