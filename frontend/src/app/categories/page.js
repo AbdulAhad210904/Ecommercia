@@ -7,6 +7,8 @@ import Navbar from '../components/Navbar';
 import CategoryGrid from '../components/CategoryGrid';
 import { fetchProductsByCategory } from '../redux/actions/productActions';
 import { useRouter } from 'next/navigation';
+import requireAuth from '../../../requireAuth';
+
 
 const Categories = () => {
   const dispatch = useDispatch();
@@ -35,4 +37,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default requireAuth(Categories);
