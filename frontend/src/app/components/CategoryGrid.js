@@ -1,6 +1,5 @@
 "use client";
 import React from 'react';
-import Link from 'next/link'; // Import Link from next/link for client-side navigation
 
 const CategoryGrid = ({ title, categories, onClick }) => {
   return (
