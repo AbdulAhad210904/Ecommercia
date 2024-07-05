@@ -1,12 +1,12 @@
-import { combineReducers } from "redux";
-import productsReducer from "./productsReducer";
-import CategoryReducer from "./cateogoryReducer";
-import cartReducer from "./cartReducer";
+import { combineReducers } from 'redux';
+import productsReducer from '../products/productSlice';
+import categoryReducer from '../categories/categorySlice';
+import cartReducer from '../cart/cartSlice';
 
-const reducers = combineReducers({
-    products: productsReducer,
-    categories:CategoryReducer,
-    cart: cartReducer,
-    });
-    
-export default reducers;
+const rootReducer = combineReducers({
+  products: productsReducer,
+  categories: categoryReducer,
+  cart: cartReducer,
+});
+
+export default rootReducer;
