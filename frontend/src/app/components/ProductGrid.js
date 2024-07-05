@@ -14,7 +14,7 @@ const ProductGrid = ({ title, products }) => {
       price: product.price,
       quantity: 1,
     };
-    dispatch(addToCart(userId, productToAdd));
+    dispatch(addToCart({ userId, productData: productToAdd }));
   };
 
   return (
