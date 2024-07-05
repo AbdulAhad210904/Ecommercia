@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCart, updateCartQuantity, deleteCartItem } from '../redux/cart/cartThunk';
@@ -12,17 +11,21 @@ const Cart = () => {
     dispatch(fetchCart(userId));
   }, [dispatch, userId]);
 
-  const handleQuantityChange = (itemId, quantity) => {
-    if (quantity < 1) return;
-    dispatch(updateCartQuantity(userId, itemId, quantity));
+  const handleQuantityChange = (itemId, newQuantity) => {
+    // Ensure new quantity is within valid bounds (minimum 1)
+    if (newQuantity < 1) return;
+
+    // Dispatch update action
+    dispatch(updateCartQuantity({ userId, itemId, quantity: newQuantity }));
   };
 
   const handleDeleteItem = (itemId) => {
-    dispatch(deleteCartItem(userId, itemId));
+    // Dispatch delete action
+    dispatch(deleteCartItem({ userId, itemId }));
   };
 
   return (
-    <div className=" bg-gray-100">
+    <div className="bg-gray-100">
       <h1 className="mb-10 text-center text-2xl font-bold text-black">Cart Items</h1>
       <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
         <div className="rounded-lg md:w-2/3">
