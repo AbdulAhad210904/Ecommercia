@@ -1,15 +1,14 @@
 "use client";
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllProducts } from '@/app/redux/actions/productActions';
+import { fetchAllProducts } from '@/app/redux/products/productThunk';
 import Navbar from '../components/Navbar';
 import ProductGrid from '../components/ProductGrid';
 import requireAuth from '../../../requireAuth';
 
-
 const AllProducts = () => {
   const dispatch = useDispatch();
-  const { products, loading } = useSelector((state) => state.products); // Ensure 'products' matches your rootReducer
+  const { products, loading } = useSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(fetchAllProducts());

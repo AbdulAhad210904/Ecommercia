@@ -2,10 +2,10 @@
 // Categories.js
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCategoryData } from '../redux/actions/categoryActions';
+import { getCategoryData } from '../redux/categories/categoryThunk';
 import Navbar from '../components/Navbar';
 import CategoryGrid from '../components/CategoryGrid';
-import { fetchProductsByCategory } from '../redux/actions/productActions';
+import { fetchProductsByCategory } from '../redux/products/productThunk';
 import { useRouter } from 'next/navigation';
 import requireAuth from '../../../requireAuth';
 

@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCart, updateCartQuantity, deleteCartItem } from '../redux/actions/cartActions';
+import { fetchCart, updateCartQuantity, deleteCartItem } from '../redux/cart/cartThunk';
 
 const Cart = () => {
   const dispatch = useDispatch();

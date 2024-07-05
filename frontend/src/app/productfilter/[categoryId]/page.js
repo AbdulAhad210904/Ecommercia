@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import Navbar from '../../components/Navbar';
 import ProductGrid from '../../components/ProductGrid';
-import { fetchProductsByCategory } from '../../redux/actions/productActions';
+import { fetchProductsByCategory } from '../../redux/products/productThunk';
 import requireAuth from '../../../../requireAuth';
 
 
