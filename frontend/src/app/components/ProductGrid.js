@@ -1,6 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/cart/cartThunk';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductGrid = ({ title, products }) => {
   const dispatch = useDispatch();
@@ -15,10 +17,12 @@ const ProductGrid = ({ title, products }) => {
       quantity: 1,
     };
     dispatch(addToCart({ userId, productData: productToAdd }));
+    toast.success('Item added to cart successfully!');
   };
 
   return (
     <div className="bg-gray-100">
+      <ToastContainer />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">{title}</h2>
