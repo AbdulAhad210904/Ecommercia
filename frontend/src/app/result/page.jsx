@@ -1,7 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Link from 'next/link';
 
 const ResultPage = ({ searchParams }) => {
   const session_id = searchParams.session_id;

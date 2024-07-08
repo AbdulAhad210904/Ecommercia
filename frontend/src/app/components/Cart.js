@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCart, updateCartQuantity, deleteCartItem } from '../redux/cart/cartThunk';
+import { fetchCart, updateCartQuantity, deleteCartItem,clearCart } from '../redux/cart/cartThunk';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import getStripe from '@/app/components/get-stripe';
@@ -46,7 +46,10 @@ const Cart = () => {
         },
         body: JSON.stringify(data),
       });
-
+      if(response.ok){
+        console.log("response",response);
+        dispatch(clearCart(userId));
+      }
       if (!response.ok) {
         throw new Error('Failed to initiate checkout session');
       }
