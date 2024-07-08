@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCart, updateCartQuantity, deleteCartItem,clearCart } from '../redux/cart/cartThunk';
+import { fetchCart, updateCartQuantity, deleteCartItem, clearCart } from '../redux/cart/cartThunk';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import getStripe from '@/app/components/get-stripe';
@@ -10,7 +10,6 @@ const Cart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems || []);
   const userId = getUserIdFromToken(); // Get the user ID from the token
-  console.log('userId:', userId);
 
   useEffect(() => {
     if (userId) {
@@ -33,7 +32,7 @@ const Cart = () => {
     try {
       const stripePromise = getStripe();
       const data = {
-        amount: cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0) + 4.99, 
+        amount: cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0) + 4.99,
         description: 'Order from Ecommercia',
         name: 'Ecommercia Order',
         image: 'https://img.freepik.com/free-vector/hand-drawn-installment-illustration_23-2149397096.jpg?w=740&t=st=1720252527~exp=1720253127~hmac=0f25fb5dc1bcb9b7132bfee4183b0a43028e27bba6f73aa8f0b4e0bec48a9e8e', // Replace with your image URL or item image URL
@@ -46,10 +45,12 @@ const Cart = () => {
         },
         body: JSON.stringify(data),
       });
-      if(response.ok){
-        console.log("response",response);
+
+      if (response.ok) {
+        console.log("response", response);
         dispatch(clearCart(userId));
       }
+
       if (!response.ok) {
         throw new Error('Failed to initiate checkout session');
       }
@@ -92,6 +93,7 @@ const Cart = () => {
                   <div className="mt-5 sm:mt-0">
                     <h2 className="text-lg font-bold text-gray-900">{item.title}</h2>
                     <p className="mt-1 text-xs text-gray-700">{item.description}</p>
+                    <p className="mt-2 text-sm text-gray-700">Subtotal: ${(item.price * item.quantity).toFixed(2)}</p>
                   </div>
                   <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                     <div className="flex items-center border-gray-100">
