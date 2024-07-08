@@ -79,3 +79,19 @@ exports.getCartItems = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+exports.clearCart = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const cart = await Cart.findOne({ userId });
+    if (!cart) {
+      return res.status(404).json({ message: 'Cart not found' });
+    }
+    cart.items = [];
+    await cart.save();
+    console.log('cart',cart);
+    res.status(200).json({ message: 'Cart cleared successfully' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+

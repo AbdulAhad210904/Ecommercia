@@ -50,3 +50,15 @@ export const deleteCartItem = createAsyncThunk(
     }
   }
 );
+
+export const clearCart = createAsyncThunk(
+  'cart/clearCart',
+  async (userId, thunkAPI) => {
+    try {
+      const response = await axios.post('http://localhost:8080/api/clearcart', { userId });
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

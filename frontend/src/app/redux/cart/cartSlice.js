@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addToCart, fetchCart, updateCartQuantity, deleteCartItem } from './cartThunk';
+import { addToCart, fetchCart, updateCartQuantity, deleteCartItem,clearCart } from './cartThunk';
 
 const initialState = {
   cartItems: [],
@@ -54,6 +54,17 @@ const cartSlice = createSlice({
         state.loading = false;
       })
       .addCase(deleteCartItem.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
+      })
+      .addCase(clearCart.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(clearCart.fulfilled, (state) => {
+        state.cartItems = [];
+        state.loading = false;
+      })
+      .addCase(clearCart.rejected, (state, action) => {
         state.error = action.payload;
         state.loading = false;
       });
