@@ -46,7 +46,6 @@ const getSession = async (req, res) => {
   try {
     const session_id = req.params.session_id;
     const session = await stripe.checkout.sessions.retrieve(session_id);
-
     res.status(200).json(session);
   } catch (error) {
     res.status(500).json({ error: error.message });
