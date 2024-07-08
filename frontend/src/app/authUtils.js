@@ -1,5 +1,5 @@
 // authUtils.js
-
+"use client";
 export const getUserIdFromToken = () => {
   const token = localStorage.getItem('token'); // Ensure the key matches your storage
   if (token) {
