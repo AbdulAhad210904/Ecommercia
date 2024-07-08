@@ -3,12 +3,13 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/cart/cartThunk';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getUserIdFromToken } from '../authUtils';
 
 const ProductGrid = ({ title, products }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = (product) => {
-    const userId = '668279981f51617908376202'; // Replace with actual userId
+    const userId = getUserIdFromToken(); // Get the user ID from the token
     const productToAdd = {
       productId: product.id,
       title: product.title,

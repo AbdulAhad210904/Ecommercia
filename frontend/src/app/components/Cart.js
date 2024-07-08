@@ -4,14 +4,18 @@ import { fetchCart, updateCartQuantity, deleteCartItem } from '../redux/cart/car
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import getStripe from '@/app/components/get-stripe';
+import { getUserIdFromToken } from '../authUtils';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems || []);
-  const userId = '668279981f51617908376202'; // Replace with actual userId
+  const userId = getUserIdFromToken(); // Get the user ID from the token
+  console.log('userId:', userId);
 
   useEffect(() => {
-    dispatch(fetchCart(userId));
+    if (userId) {
+      dispatch(fetchCart(userId));
+    }
   }, [dispatch, userId]);
 
   const handleQuantityChange = (itemId, newQuantity) => {
@@ -29,7 +33,7 @@ const Cart = () => {
     try {
       const stripePromise = getStripe();
       const data = {
-        amount: cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)+4.99, 
+        amount: cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0) + 4.99, 
         description: 'Order from Ecommercia',
         name: 'Ecommercia Order',
         image: 'https://img.freepik.com/free-vector/hand-drawn-installment-illustration_23-2149397096.jpg?w=740&t=st=1720252527~exp=1720253127~hmac=0f25fb5dc1bcb9b7132bfee4183b0a43028e27bba6f73aa8f0b4e0bec48a9e8e', // Replace with your image URL or item image URL
@@ -127,9 +131,8 @@ const Cart = () => {
           <button onClick={fetchCheckoutSession} className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check out</button>
         </div>
       </div>
-      </div>
-    );
-    
+    </div>
+  );
 };
 
 export default Cart;
