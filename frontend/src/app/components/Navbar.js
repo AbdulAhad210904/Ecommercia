@@ -1,12 +1,17 @@
 "use client";
 import React from 'react';
+import {getUserIdFromToken} from '../authUtils';
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const router = useRouter();
+  const userId = getUserIdFromToken();
   const handleLogout = () => {
     localStorage.removeItem("token");
     router.push("/login");
+  };
+  const openProfile= () => {
+    router.push(`/profile/${userId}`);
   };
   return (
 <nav className="bg-gray-800">
@@ -53,13 +58,14 @@ const Navbar = () => {
 
         <div className="relative ml-3">
           <div>
-            <button type="button" className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+            <button type="button" onClick={openProfile} className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
               <span className="absolute -inset-1.5"></span>
               <span className="sr-only">Open user menu</span>
               <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""></img>
             </button>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -70,6 +76,7 @@ const Navbar = () => {
     <a href="/allproducts" className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">All Products</a>
     </div>
   </div>
+  
 </nav>
   );
 };
