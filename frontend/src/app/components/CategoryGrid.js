@@ -3,10 +3,13 @@ import React from 'react';
 
 const CategoryGrid = ({ title, categories, onClick }) => {
   return (
+
+    
     <div className="bg-gray-100">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
-          <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
+        <div className="text-center p-10">
+        <h1 className="font-bold text-4xl mb-4">{title}</h1>
+      </div>
           <div className="mt-6 grid gap-6 lg:grid-cols-3">
             {categories?.map((category) => (
               <div key={category.slug} className="group relative">
@@ -32,7 +35,6 @@ const CategoryGrid = ({ title, categories, onClick }) => {
             ))}
           </div>
         </div>
-      </div>
     </div>
   );
 };

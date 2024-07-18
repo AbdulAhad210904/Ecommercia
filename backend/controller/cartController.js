@@ -3,11 +3,17 @@ const Cart = require('../models/cart');
 exports.addItemToCart = async (req, res) => {
   try {
     const { userId, productId, title, image, price, quantity } = req.body;
+    // console.log('productId',productId);
+    const itemId  = productId;
+    // console.log('itemId',itemId);
     let cart = await Cart.findOne({ userId });
+    // console.log('cart was:',cart);
     if (!cart) {
       cart = new Cart({ userId, items: [] });
     }
-    const itemIndex = cart.items.findIndex(item => item.productId === productId);
+    console.log(productId);
+    const itemIndex = cart.items.findIndex(item => item.productId.toString() === itemId.toString());
+    // console.log('itemIndex',itemIndex);
     if (itemIndex > -1) {
       cart.items[itemIndex].quantity += quantity;
     } else {
@@ -52,7 +58,7 @@ exports.updateItemQuantity = async (req, res) => {
     }
 
     const itemIndex = cart.items.findIndex(item => item.productId.toString() === itemId);
-
+    console.log('itemIndex2',itemIndex);
     if (itemIndex === -1) {
       return res.status(404).json({ message: 'Item not found in cart' });
     }
