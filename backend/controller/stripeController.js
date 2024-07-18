@@ -11,7 +11,8 @@ const CURRENCY = 'usd'; // Define your currency here
 
 const stripeCheckout = async (req, res) => {
   try {
-    let { amount,name,description,image } = req.body;
+    let { amount,name,description,image,email } = req.body;
+    console.log(req.body);
     amount = Math.round(amount * 100); // Convert amount to cents
 
     const params = {
@@ -31,6 +32,7 @@ const stripeCheckout = async (req, res) => {
           quantity: 1,
         }],
         mode: 'payment',
+      customer_email: email,
       success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
     };

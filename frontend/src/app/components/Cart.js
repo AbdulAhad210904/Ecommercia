@@ -1,37 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCart, updateCartQuantity, deleteCartItem, clearCart } from '../redux/cart/cartThunk';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import getStripe from '@/app/components/get-stripe';
 import { getUserIdFromToken } from '../authUtils';
-import prisma from '../prisma';
 
-const Cart =  () => {
+const Cart = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems || []);
   const userId = getUserIdFromToken(); // Get the user ID from the token
-
-  let user = null;
-  try {
-    user =  prisma.users.findUnique({
-      where: {
-        id: userId,
-      },
-    });
-  } catch (error) {
-    console.error('Error fetching user:', error);
-  }
-  console.log(user);
-
-
+  const [userEmail, setUserEmail] = useState(null);
 
   useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`/api/fetchUser?userId=${userId}`);
+        const userData = await response.json();
+        setUserEmail(userData.email); // Update userEmail using useState
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+  
     if (userId) {
+      fetchUserData();
       dispatch(fetchCart(userId));
     }
   }, [dispatch, userId]);
-
+  
   const handleQuantityChange = (itemId, newQuantity) => {
     if (newQuantity < 1) return;
     dispatch(updateCartQuantity({ userId, itemId, quantity: newQuantity }));
@@ -43,14 +40,18 @@ const Cart =  () => {
     toast.success('Item removed from cart successfully!');
   };
 
+
   const fetchCheckoutSession = async () => {
     try {
+      const email = userEmail;
+      toast.success(`Email: ${email}`);
       const stripePromise = getStripe();
       const data = {
         amount: cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0) + 4.99,
         description: 'Order from Ecommercia',
         name: 'Ecommercia Order',
-        image: 'https://img.freepik.com/free-vector/hand-drawn-installment-illustration_23-2149397096.jpg?w=740&t=st=1720252527~exp=1720253127~hmac=0f25fb5dc1bcb9b7132bfee4183b0a43028e27bba6f73aa8f0b4e0bec48a9e8e',
+        image: 'https://img.freepik.com/free-vector/hand-drawn-installment-illustration_23-2149397096.jpg?w=740&t=st=1720252527~exp=1720253127~hmac=0f25fb5dc1bcb9b7132bfee4183b0a43028e27bba6f73aa8f0b4e0bec48a9e8e', // Replace with your image URL or item image URL
+        email: email,
       };
 
       const response = await fetch('http://localhost:8080/api/checkout', {
@@ -61,8 +62,6 @@ const Cart =  () => {
         body: JSON.stringify(data),
       });
 
-      
-
       if (!response.ok) {
         throw new Error('Failed to initiate checkout session');
       }
@@ -71,14 +70,10 @@ const Cart =  () => {
       const checkoutSessionId = result.checkoutSession.id;
 
       const stripe = await stripePromise;
-      // if (response.ok) {
-      //   console.log("response", response);
-      //   dispatch(clearCart(userId));
-      // }
       const { error } = await stripe.redirectToCheckout({
         sessionId: checkoutSessionId,
       });
-      
+
       if (error) {
         console.error('Error redirecting to Checkout:', error);
       }
@@ -152,11 +147,11 @@ const Cart =  () => {
             <div className="flex justify-between">
               <p className="text-lg font-bold text-black">Total</p>
               <div className="">
-                <p className="mb-1 text-lg font-bold text-black">${(cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0) + 4.99).toFixed(2)} USD</p>
+                <p className="mb-1 text-lg font-bold text-black">${(cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0) + 4.99).toFixed(2)} </p>
                 <p className="text-sm text-gray-700">including VAT</p>
               </div>
             </div>
-            <button onClick={fetchCheckoutSession} className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check out</button>
+            <button onClick={fetchCheckoutSession} className="mt-6 w-full rounded-md bg-black py-1.5 font-medium text-blue-50 hover:bg-black">Check out</button>
           </div>
         )}
       </div>
