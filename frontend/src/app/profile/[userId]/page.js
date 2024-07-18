@@ -1,7 +1,6 @@
-import { PrismaClient } from '@prisma/client'
 import UserProfile from '../../components/UserProfile'// src/app/profile/[userId]/page.js
 import Navbar from '@/app/components/Navbar';
-const prisma = new PrismaClient();
+import prisma from '../../prisma'
 
 const ProfilePage = async ({ params }) => {
   const { userId } = params;
