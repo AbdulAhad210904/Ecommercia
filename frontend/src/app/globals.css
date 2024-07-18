@@ -30,3 +30,13 @@ body {
 .full-height {
   height: 100vh !important;
 }
+
+.blink {
+  animation: blink-color-change 1s step-end infinite;
+}
+
+@keyframes blink-color-change {
+  50% {
+    color: red; /* Change this to your desired color */
+  }
+}
