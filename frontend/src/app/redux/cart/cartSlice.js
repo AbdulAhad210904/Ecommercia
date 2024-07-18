@@ -4,7 +4,8 @@ import { addToCart, fetchCart, updateCartQuantity, deleteCartItem,clearCart } fr
 const initialState = {
   cartItems: [],
   error: null,
-  loading: false
+  loading: false,
+  lastUpdated: null,
 };
 
 const cartSlice = createSlice({
@@ -19,6 +20,7 @@ const cartSlice = createSlice({
       .addCase(addToCart.fulfilled, (state, action) => {
         state.cartItems = action.payload;
         state.loading = false;
+        state.lastUpdated = new Date().toISOString();
       })
       .addCase(addToCart.rejected, (state, action) => {
         state.error = action.payload;
