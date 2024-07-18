@@ -24,9 +24,7 @@ const Categories = () => {
     router.push(`/productfilter/${categoryId}`); // Use router.push to navigate
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+
 
   const limitedCategories = categories.slice(0, 6);
   return (

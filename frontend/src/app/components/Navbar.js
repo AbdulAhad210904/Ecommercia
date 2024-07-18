@@ -1,11 +1,17 @@
 "use client";
 import React, { useState,useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { getUserIdFromToken } from '../authUtils';
 import { useRouter } from "next/navigation";
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
 
 const Navbar = () => {
+  const pathname = usePathname();
+  const isActive = (path) => {
+    return pathname === path ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white';
+  };
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
   const userId = getUserIdFromToken();
@@ -72,29 +78,23 @@ const Navbar = () => {
           </button>
         </div>
         <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-          <div className="flex flex-shrink-0 items-center">
-            <img
-              className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-              alt="Your Company"
-            ></img>
-          </div>
+
           <div className="hidden sm:ml-6 sm:block">
             <div className="flex space-x-4">
-              <Link 
-                href="/categories"
-                className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                aria-current="page"
-              >
-                Categories
+                <Link 
+                  href="/categories"
+                  className={`rounded-md px-3 py-2 text-sm font-medium ${isActive('/categories')}`}
+                  aria-current="page"
+                >
+                  Categories
                 </Link>
-              
-              <Link
-                href="/allproducts"
-                className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-              >
-                All Products
-              </Link>
+
+                <Link
+                  href="/allproducts"
+                  className={`rounded-md px-3 py-2 text-sm font-medium ${isActive('/allproducts')}`}
+                >
+                  All Products
+                </Link>
             </div>
           </div>
         </div>
@@ -134,17 +134,18 @@ const Navbar = () => {
       <div className="space-y-1 px-2 pb-3 pt-2">
         <Link
           href="/categories"
-          className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          className={`block rounded-md px-3 py-2 text-base font-medium ${isActive('/categories')}`}
           aria-current="page"
         >
           Categories
         </Link>
         <Link
           href="/allproducts"
-          className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          className={`block rounded-md px-3 py-2 text-base font-medium ${isActive('/allproducts')}`}
         >
           All Products
         </Link>
+
       </div>
     </div>
   </nav>
