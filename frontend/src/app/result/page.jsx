@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearCart } from '../redux/cart/cartThunk';
 import { getUserIdFromToken } from '../authUtils';
-
+import Link from 'next/link';
 import axios from 'axios';
 
 const ResultPage = ({ searchParams }) => {
@@ -59,9 +59,9 @@ const ResultPage = ({ searchParams }) => {
         )}
 
         <div className="mt-4">
-            <a  href="/" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition duration-300 ease-in-out">
+            <Link  href="/" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition duration-300 ease-in-out">
               Back to Main Page
-            </a>
+            </Link>
         </div>
       </div>
     </div>

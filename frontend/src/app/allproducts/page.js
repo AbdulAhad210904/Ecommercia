@@ -14,9 +14,7 @@ console.log("products: ",products);
     dispatch(fetchAllProducts());
   }, [dispatch]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+
 
   // Clean up the image URLs
   const cleanedProducts = products?.map(product => {
