@@ -5,11 +5,26 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import getStripe from '@/app/components/get-stripe';
 import { getUserIdFromToken } from '../authUtils';
+import prisma from '../prisma';
 
-const Cart = () => {
+const Cart =  () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems || []);
   const userId = getUserIdFromToken(); // Get the user ID from the token
+
+  let user = null;
+  try {
+    user =  prisma.users.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+  } catch (error) {
+    console.error('Error fetching user:', error);
+  }
+  console.log(user);
+
+
 
   useEffect(() => {
     if (userId) {
@@ -35,7 +50,7 @@ const Cart = () => {
         amount: cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0) + 4.99,
         description: 'Order from Ecommercia',
         name: 'Ecommercia Order',
-        image: 'https://img.freepik.com/free-vector/hand-drawn-installment-illustration_23-2149397096.jpg?w=740&t=st=1720252527~exp=1720253127~hmac=0f25fb5dc1bcb9b7132bfee4183b0a43028e27bba6f73aa8f0b4e0bec48a9e8e', // Replace with your image URL or item image URL
+        image: 'https://img.freepik.com/free-vector/hand-drawn-installment-illustration_23-2149397096.jpg?w=740&t=st=1720252527~exp=1720253127~hmac=0f25fb5dc1bcb9b7132bfee4183b0a43028e27bba6f73aa8f0b4e0bec48a9e8e',
       };
 
       const response = await fetch('http://localhost:8080/api/checkout', {
@@ -46,10 +61,7 @@ const Cart = () => {
         body: JSON.stringify(data),
       });
 
-      if (response.ok) {
-        console.log("response", response);
-        dispatch(clearCart(userId));
-      }
+      
 
       if (!response.ok) {
         throw new Error('Failed to initiate checkout session');
@@ -59,10 +71,14 @@ const Cart = () => {
       const checkoutSessionId = result.checkoutSession.id;
 
       const stripe = await stripePromise;
+      // if (response.ok) {
+      //   console.log("response", response);
+      //   dispatch(clearCart(userId));
+      // }
       const { error } = await stripe.redirectToCheckout({
         sessionId: checkoutSessionId,
       });
-
+      
       if (error) {
         console.error('Error redirecting to Checkout:', error);
       }

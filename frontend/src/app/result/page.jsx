@@ -1,14 +1,22 @@
 'use client'
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearCart } from '../redux/cart/cartThunk';
+import { getUserIdFromToken } from '../authUtils';
+
 import axios from 'axios';
 
 const ResultPage = ({ searchParams }) => {
+  const dispatch = useDispatch();
+  const userId = getUserIdFromToken(); // Get the user ID from the token
+
   const session_id = searchParams.session_id;
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (session_id) {
+      dispatch(clearCart(userId));
       // Fetch the session details from your backend
       const fetchSession = async () => {
         try {
