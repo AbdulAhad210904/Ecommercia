@@ -4,7 +4,6 @@ import { usePathname } from 'next/navigation';
 import { getUserIdFromToken } from '../authUtils';
 import { useRouter } from "next/navigation";
 import { useSelector } from 'react-redux';
-import Link from 'next/link';
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -81,25 +80,25 @@ const Navbar = () => {
 
           <div className="hidden sm:ml-6 sm:block">
             <div className="flex space-x-4">
-                <Link 
+                <a 
                   href="/categories"
                   className={`rounded-md px-3 py-2 text-sm font-medium ${isActive('/categories')}`}
                   aria-current="page"
                 >
                   Categories
-                </Link>
+                </a>
 
-                <Link
+                <a
                   href="/allproducts"
                   className={`rounded-md px-3 py-2 text-sm font-medium ${isActive('/allproducts')}`}
                 >
                   All Products
-                </Link>
+                </a>
             </div>
           </div>
         </div>
         <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-          <Link
+          <a
             className={`me-4 text-neutral-600 dark:text-white ${
               blink ? 'blink' : ''
             }`}
@@ -114,7 +113,7 @@ const Navbar = () => {
                 <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
               </svg>
             </span>
-          </Link>
+          </a>
           <button
             onClick={handleLogout}
             className="relative inline-flex items-center justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-medium text-white hover:bg-red-700"
@@ -132,19 +131,19 @@ const Navbar = () => {
     </div>
     <div className={`sm:hidden ${mobileMenuOpen ? 'block' : 'hidden'}`} id="mobile-menu">
       <div className="space-y-1 px-2 pb-3 pt-2">
-        <Link
+        <a
           href="/categories"
           className={`block rounded-md px-3 py-2 text-base font-medium ${isActive('/categories')}`}
           aria-current="page"
         >
           Categories
-        </Link>
-        <Link
+        </a>
+        <a
           href="/allproducts"
           className={`block rounded-md px-3 py-2 text-base font-medium ${isActive('/allproducts')}`}
         >
           All Products
-        </Link>
+        </a>
 
       </div>
     </div>
