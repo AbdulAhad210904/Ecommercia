@@ -18,6 +18,7 @@ const Cart = () => {
         const response = await fetch(`/api/fetchUser?userId=${userId}`);
         const userData = await response.json();
         setUserEmail(userData.email); // Update userEmail using useState
+        // toast.success(`useremail: ${userData.email}`);
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -85,7 +86,10 @@ const Cart = () => {
   return (
     <div className="bg-gray-100">
       <ToastContainer />
-      <h1 className="mb-10 text-center text-2xl font-bold text-black">Cart Items</h1>
+      <div className="text-center p-10">
+      <h1 className="font-bold text-4xl mb-4 text-black">Cart Items</h1>
+
+</div>
       <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
         {cartItems.length === 0 ? (
           <div className="text-center text-gray-700">

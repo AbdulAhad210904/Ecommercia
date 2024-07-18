@@ -18,41 +18,39 @@ const ProductGrid = ({ title, products }) => {
       quantity: 1,
     };
     dispatch(addToCart({ userId, productData: productToAdd }));
-    toast.success('Item added to cart successfully!');
   };
 
   return (
     <div className="bg-gray-100">
       <ToastContainer />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900">{title}</h2>
-          <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-            {products?.map((product) => (
-              <div key={product.id} className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                  <img className="p-8 rounded-t-lg" src={product.images[0]} alt={product.title} />
-                </a>
-                <div className="px-5 pb-5">
-                  <a href="#">
-                    <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{product.title}</h5>
-                  </a>
-                  <div className="flex items-center mt-2.5 mb-5"></div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-3xl font-bold text-gray-900 dark:text-white">${product.price}</span>
+      <div className="text-center p-10">
+        <h1 className="font-bold text-4xl mb-4">{title}</h1>
+      </div>
+      
+      {/* Grid Section */}
+      <section id="Projects" className="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4  md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
+        {products?.map((product) => (
+          <div key={product.id} className="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
+              <img src={product.images[0]} alt={product.title} className="h-80 w-72 object-cover rounded-t-xl" />
+              <div className="px-4 py-3 w-72">
+                <span className="text-gray-400 mr-3 uppercase text-xs">Product Name</span>
+                <p className="text-lg font-bold text-black truncate block capitalize">{product.title}</p>
+                <div className="flex items-center">
+                  <p className="text-lg font-semibold text-black cursor-auto my-3">${product.price}</p>
+
+                  <div className="ml-auto">
                     <button
                       onClick={() => handleAddToCart(product)}
-                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                     >
                       Add to cart
                     </button>
                   </div>
                 </div>
               </div>
-            ))}
           </div>
-        </div>
-      </div>
+        ))}
+      </section>
     </div>
   );
 };

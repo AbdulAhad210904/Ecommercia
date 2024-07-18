@@ -9,7 +9,7 @@ import requireAuth from '../../../requireAuth';
 const AllProducts = () => {
   const dispatch = useDispatch();
   const { products, loading } = useSelector((state) => state.products);
-
+console.log("products: ",products);
   useEffect(() => {
     dispatch(fetchAllProducts());
   }, [dispatch]);
