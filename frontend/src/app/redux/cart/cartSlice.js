@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addToCart, fetchCart, updateCartQuantity, deleteCartItem,clearCart } from './cartThunk';
+import { addToCart, fetchCart, updateCartQuantity, deleteCartItem, clearCart } from './cartThunk';
 
 const initialState = {
   cartItems: [],
   error: null,
   loading: false,
   lastUpdated: null,
+  counter: Number(localStorage.getItem('cartCounter')) || 0,
 };
 
 const cartSlice = createSlice({
@@ -21,6 +22,13 @@ const cartSlice = createSlice({
         state.cartItems = action.payload;
         state.loading = false;
         state.lastUpdated = new Date().toISOString();
+        //check if same item is already in cart
+        if (state.cartItems.items.length === state.counter) {
+          state.counter = state.counter;
+        } else {
+          state.counter += 1; 
+          localStorage.setItem('cartCounter', state.counter);
+        }
       })
       .addCase(addToCart.rejected, (state, action) => {
         state.error = action.payload;
@@ -32,6 +40,8 @@ const cartSlice = createSlice({
       .addCase(fetchCart.fulfilled, (state, action) => {
         state.cartItems = action.payload;
         state.loading = false;
+        state.counter = state.cartItems.length; // Update counter based on cartItems length
+        localStorage.setItem('cartCounter', state.counter);
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.error = action.payload;
@@ -43,6 +53,8 @@ const cartSlice = createSlice({
       .addCase(updateCartQuantity.fulfilled, (state, action) => {
         state.cartItems = action.payload;
         state.loading = false;
+        state.counter = state.cartItems.length; // Update counter based on cartItems length
+        localStorage.setItem('cartCounter', state.counter);
       })
       .addCase(updateCartQuantity.rejected, (state, action) => {
         state.error = action.payload;
@@ -54,6 +66,8 @@ const cartSlice = createSlice({
       .addCase(deleteCartItem.fulfilled, (state, action) => {
         state.cartItems = action.payload;
         state.loading = false;
+        state.counter = state.cartItems.length; // Update counter based on cartItems length
+        localStorage.setItem('cartCounter', state.counter);
       })
       .addCase(deleteCartItem.rejected, (state, action) => {
         state.error = action.payload;
@@ -65,6 +79,8 @@ const cartSlice = createSlice({
       .addCase(clearCart.fulfilled, (state) => {
         state.cartItems = [];
         state.loading = false;
+        state.counter = 0;
+        localStorage.setItem('cartCounter', 0);
       })
       .addCase(clearCart.rejected, (state, action) => {
         state.error = action.payload;

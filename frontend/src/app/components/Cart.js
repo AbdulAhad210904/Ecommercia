@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCart, updateCartQuantity, deleteCartItem, clearCart } from '../redux/cart/cartThunk';
+import { fetchCart, updateCartQuantity, deleteCartItem } from '../redux/cart/cartThunk';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import getStripe from '@/app/components/get-stripe';
@@ -23,7 +23,6 @@ const Cart = () => {
         console.error('Error fetching user data:', error);
       }
     };
-  
     if (userId) {
       fetchUserData();
       dispatch(fetchCart(userId));

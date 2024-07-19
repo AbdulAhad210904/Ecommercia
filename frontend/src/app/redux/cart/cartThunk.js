@@ -5,7 +5,6 @@ export const addToCart = createAsyncThunk(
   'cart/addToCart',
   async ({ userId, productData }, thunkAPI) => {
     try {
-       console.log("userId", userId);
       console.log("productData", productData);
       const response = await axios.post('http://localhost:8080/api/add', { userId, ...productData });
       return response.data;
