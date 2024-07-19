@@ -5,11 +5,11 @@ import { getUserIdFromToken } from '../authUtils';
 import { useRouter } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCart } from '../redux/cart/cartThunk';
-import { toast } from 'react-toastify';
+import Link from 'next/link';
 
 const Navbar = () => {
   const pathname = usePathname(); 
-  const isActive = (path) => pathname === path ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white';
+  const isActive = (path) => pathname === path ? 'bg-gray-900 text-white dark:bg-gray-700' : 'text-gray-300 hover:bg-gray-700 hover:text-white dark:text-gray-400 dark:hover:bg-gray-600';
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
@@ -40,13 +40,13 @@ const Navbar = () => {
   const [blink, setBlink] = useState(false);
 
   return (
-    <nav className="bg-gray-800 sticky top-0 z-50">
+    <nav className="bg-gray-800 dark:bg-gray-900 sticky top-0 z-50">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             <button
               type="button"
-              className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white dark:text-gray-300 dark:hover:bg-gray-600"
               aria-controls="mobile-menu"
               aria-expanded={mobileMenuOpen}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -85,19 +85,19 @@ const Navbar = () => {
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
-                <a 
+                <Link 
                   href="/categories"
                   className={`rounded-md px-3 py-2 text-sm font-medium ${isActive('/categories')}`}
                   aria-current="page"
                 >
                   Categories
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/allproducts"
                   className={`rounded-md px-3 py-2 text-sm font-medium ${isActive('/allproducts')}`}
                 >
                   All Products
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -119,34 +119,35 @@ const Navbar = () => {
             </a>
             <button
               onClick={handleLogout}
-              className="relative inline-flex items-center justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-medium text-white hover:bg-red-700"
+              className="relative inline-flex items-center justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-medium text-white hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800"
             >
               Logout
             </button>
             <button
               onClick={openProfile}
-              className="relative ml-3 inline-flex items-center justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-medium text-white hover:bg-green-700"
+              className="relative ml-3 inline-flex items-center justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800"
             >
               Profile
             </button>
+
           </div>
         </div>
       </div>
       <div className={`sm:hidden ${mobileMenuOpen ? 'block' : 'hidden'}`} id="mobile-menu">
         <div className="space-y-1 px-2 pb-3 pt-2">
-          <a
+          <Link
             href="/categories"
             className={`block rounded-md px-3 py-2 text-base font-medium ${isActive('/categories')}`}
             aria-current="page"
           >
             Categories
-          </a>
-          <a
+          </Link>
+          <Link
             href="/allproducts"
             className={`block rounded-md px-3 py-2 text-base font-medium ${isActive('/allproducts')}`}
           >
             All Products
-          </a>
+          </Link>
         </div>
       </div>
     </nav>

@@ -5,8 +5,34 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import getStripe from '@/app/components/get-stripe';
 import { getUserIdFromToken } from '../authUtils';
+import { FaSun, FaMoon } from 'react-icons/fa';
+
 
 const Cart = () => {
+  const [darkMode, setDarkMode] = useState(false);
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    if (darkMode) {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+  };
+
+  useEffect(() => {
+    // Load initial dark mode state from local storage or system preference
+    const isDarkMode = localStorage.getItem('darkMode') === 'true';
+    setDarkMode(isDarkMode);
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('darkMode', darkMode);
+  }, [darkMode]);
+
+
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems || []);
   const userId = getUserIdFromToken(); // Get the user ID from the token
@@ -109,11 +135,18 @@ const Cart = () => {
   };
 
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 dark:bg-gray-800">
       <ToastContainer />
       <div className="text-center p-10">
-        <h1 className="font-bold text-4xl mb-4 text-black">Cart Items</h1>
-      </div>
+      <div className="flex justify-around items-center ">
+            <h1 className="font-bold text-4xl mb-4 font-mono dark:text-white ">Cart Items</h1>
+            <button
+              onClick={toggleDarkMode}
+              className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-800"
+            >
+              {darkMode ? <FaSun /> : <FaMoon />}
+            </button>
+          </div>      </div>
       <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
         {cartItems.length === 0 ? (
           <div className="text-center text-gray-700">

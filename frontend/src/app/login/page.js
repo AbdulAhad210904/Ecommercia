@@ -29,11 +29,10 @@ const Login = () => {
       const result = await response.json();
       if (response.ok) {
         toast.success('Logged in successfully!');
-        // Store the token in local storage or context for further use
-        localStorage.setItem('token', result.data);   //use cookies
+        localStorage.setItem('token', result.data);   
         setTimeout(() => {
           router.push('/');
-        }, 1000); // 2 seconds delay
+        }, 1000);
         
       } else {
         toast.error(result.message);
