@@ -37,7 +37,6 @@ const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems || []);
   const userId = getUserIdFromToken(); // Get the user ID from the token
   const [userEmail, setUserEmail] = useState(null);
-  const [toastId, setToastId] = useState(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -59,38 +58,12 @@ const Cart = () => {
   const handleQuantityChange = (itemId, newQuantity) => {
     if (newQuantity < 1) return;
     dispatch(updateCartQuantity({ userId, itemId, quantity: newQuantity }));
-    
-    // Update toast
-    if (toastId) {
-      toast.update(toastId, {
-        render: 'Item quantity updated successfully!',
-        type: 'success',
-        autoClose: 2000,
-      });
-    } else {
-      // Create a new toast if one does not exist
-      const id = toast.success('Item quantity updated successfully!', {
-        autoClose: 2000,
-      });
-      setToastId(id);
-    }
+
   };
 
   const handleDeleteItem = (itemId) => {
     dispatch(deleteCartItem({ userId, itemId }));
-    if (toastId) {
-      toast.update(toastId, {
-        render: 'Item removed from cart successfully!',
-        type: 'success',
-        autoClose: 2000,
-      });
-    } else {
-      // Create a new toast if one does not exist
-      const id = toast.success('Item removed from cart successfully!', {
-        autoClose: 2000,
-      });
-      setToastId(id);
-    }
+    
   };
 
   const fetchCheckoutSession = async () => {
