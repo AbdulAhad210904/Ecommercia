@@ -1,8 +1,8 @@
 "use client";
-
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Main from './allproducts/page'; // Assuming you have a main/page.js
+import Main from './allproducts/page'; 
+import Check from './components/NextauthSignin';
 
 const Home = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -23,7 +23,8 @@ const Home = () => {
 
   return (
     <div>
-      <Main />
+      {/* <Main /> */}
+      <Check />
     </div>
   );
 };

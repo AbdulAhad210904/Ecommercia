@@ -6,12 +6,23 @@ const initialState = {
   error: null,
   loading: false,
   lastUpdated: null,
-  counter: Number(localStorage.getItem('cartCounter')) || 0,
+  counter: 0,
+};
+
+// Helper function to safely access localStorage
+const getLocalStorageCounter = () => {
+  if (typeof window !== 'undefined') {
+    return Number(localStorage.getItem('cartCounter')) || 0;
+  }
+  return 0;
 };
 
 const cartSlice = createSlice({
   name: 'cart',
-  initialState,
+  initialState: {
+    ...initialState,
+    counter: getLocalStorageCounter(),
+  },
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -22,12 +33,14 @@ const cartSlice = createSlice({
         state.cartItems = action.payload;
         state.loading = false;
         state.lastUpdated = new Date().toISOString();
-        //check if same item is already in cart
-        if (state.cartItems.items.length === state.counter) {
-          state.counter = state.counter;
-        } else {
-          state.counter += 1; 
-          localStorage.setItem('cartCounter', state.counter);
+        if (typeof window !== 'undefined') {
+          // Update counter and localStorage only on the client side
+          if (state.cartItems.items.length === state.counter) {
+            state.counter = state.counter;
+          } else {
+            state.counter += 1;
+            localStorage.setItem('cartCounter', state.counter);
+          }
         }
       })
       .addCase(addToCart.rejected, (state, action) => {
@@ -40,8 +53,11 @@ const cartSlice = createSlice({
       .addCase(fetchCart.fulfilled, (state, action) => {
         state.cartItems = action.payload;
         state.loading = false;
-        state.counter = state.cartItems.length; // Update counter based on cartItems length
-        localStorage.setItem('cartCounter', state.counter);
+        if (typeof window !== 'undefined') {
+          // Update counter and localStorage only on the client side
+          state.counter = state.cartItems.length;
+          localStorage.setItem('cartCounter', state.counter);
+        }
       })
       .addCase(fetchCart.rejected, (state, action) => {
         state.error = action.payload;
@@ -53,8 +69,11 @@ const cartSlice = createSlice({
       .addCase(updateCartQuantity.fulfilled, (state, action) => {
         state.cartItems = action.payload;
         state.loading = false;
-        state.counter = state.cartItems.length; // Update counter based on cartItems length
-        localStorage.setItem('cartCounter', state.counter);
+        if (typeof window !== 'undefined') {
+          // Update counter and localStorage only on the client side
+          state.counter = state.cartItems.length;
+          localStorage.setItem('cartCounter', state.counter);
+        }
       })
       .addCase(updateCartQuantity.rejected, (state, action) => {
         state.error = action.payload;
@@ -66,8 +85,11 @@ const cartSlice = createSlice({
       .addCase(deleteCartItem.fulfilled, (state, action) => {
         state.cartItems = action.payload;
         state.loading = false;
-        state.counter = state.cartItems.length; // Update counter based on cartItems length
-        localStorage.setItem('cartCounter', state.counter);
+        if (typeof window !== 'undefined') {
+          // Update counter and localStorage only on the client side
+          state.counter = state.cartItems.length;
+          localStorage.setItem('cartCounter', state.counter);
+        }
       })
       .addCase(deleteCartItem.rejected, (state, action) => {
         state.error = action.payload;
@@ -80,7 +102,10 @@ const cartSlice = createSlice({
         state.cartItems = [];
         state.loading = false;
         state.counter = 0;
-        localStorage.setItem('cartCounter', 0);
+        if (typeof window !== 'undefined') {
+          // Update localStorage only on the client side
+          localStorage.setItem('cartCounter', 0);
+        }
       })
       .addCase(clearCart.rejected, (state, action) => {
         state.error = action.payload;
