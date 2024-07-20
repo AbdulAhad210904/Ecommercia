@@ -1,20 +1,18 @@
 const Stripe = require('stripe');
 const dotenv = require('dotenv');
-// Load environment variables from .env file
 dotenv.config();
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2024-06-20',
 });
 
-const CURRENCY = 'usd'; // Define your currency here
+const CURRENCY = 'usd'; 
 
 const stripeCheckout = async (req, res) => {
   try {
     let { amount,name,description,image,email } = req.body;
     console.log(req.body);
-    amount = Math.round(amount * 100); // Convert amount to cents
-
+    amount = Math.round(amount * 100); 
     const params = {
       submit_type: 'donate',
       payment_method_types: ['card'],

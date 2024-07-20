@@ -20,7 +20,6 @@ const ProductFilter = ({params: {categoryId}}) => {
   }, [categoryId, dispatch]);
   console.log(products);
 
-    // Clean up the image URLs
     const cleanedProducts = products?.map(product => {
         const imagesArray = product.images.map(image => image.replace(/^\[\"|\"\]$/g, ''));
         return {

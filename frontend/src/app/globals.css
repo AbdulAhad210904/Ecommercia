@@ -39,6 +39,6 @@ body {
 
 @keyframes blink-color-change {
   50% {
-    color: red; /* Change this to your desired color */
+    color: red; 
   }
 }

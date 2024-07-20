@@ -1,4 +1,3 @@
-// src/app/api/fetchUser/route.js
 import { NextResponse } from 'next/server';
 import prisma from '../../prisma';
 

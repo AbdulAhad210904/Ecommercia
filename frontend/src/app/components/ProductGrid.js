@@ -21,7 +21,6 @@ const ProductGrid = ({ title, products }) => {
   };
 
   useEffect(() => {
-    // Load initial dark mode state from local storage or system preference
     const isDarkMode = localStorage.getItem('darkMode') === 'true';
     setDarkMode(isDarkMode);
     if (isDarkMode) {

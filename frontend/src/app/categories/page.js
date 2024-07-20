@@ -1,5 +1,4 @@
 "use client"
-// Categories.js
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCategoryData } from '../redux/categories/categoryThunk';
@@ -12,7 +11,7 @@ import requireAuth from '../../../requireAuth';
 
 const Categories = () => {
   const dispatch = useDispatch();
-  const router = useRouter(); // Ensure useRouter is inside the component
+  const router = useRouter(); 
   const { categories, loading } = useSelector((state) => state.categories);
 
   useEffect(() => {
@@ -21,7 +20,7 @@ const Categories = () => {
 
   const handleCategoryClick = (categoryId) => {
     dispatch(fetchProductsByCategory(categoryId));
-    router.push(`/productfilter/${categoryId}`); // Use router.push to navigate
+    router.push(`/productfilter/${categoryId}`); 
   };
 
 

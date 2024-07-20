@@ -16,7 +16,7 @@ console.log("products: ",products);
 
 
 
-  // Clean up the image URLs
+  // Cleaning image Urls
   const cleanedProducts = products?.map(product => {
     const imagesArray = product.images.map(image => image.replace(/^\[\"|\"\]$/g, ''));
     return {

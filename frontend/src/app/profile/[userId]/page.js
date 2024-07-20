@@ -1,4 +1,4 @@
-import UserProfile from '../../components/UserProfile'// src/app/profile/[userId]/page.js
+import UserProfile from '../../components/UserProfile'
 import Navbar from '@/app/components/Navbar';
 import prisma from '../../prisma'
 
