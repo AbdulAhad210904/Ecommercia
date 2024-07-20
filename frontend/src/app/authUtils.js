@@ -1,12 +1,11 @@
-// authUtils.js
 "use client";
 export const getUserIdFromToken = () => {
-  if (typeof window !== 'undefined') {
+  if (true) {
     const token = localStorage.getItem('token'); 
     if (token) {
       try {
         const decoded = parseJwt(token);
-        return decoded._id; // Extract the user id from token
+        return decoded._id;
       } catch (error) {
         console.error('Error decoding token:', error);
         return null;

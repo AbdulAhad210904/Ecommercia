@@ -16,9 +16,8 @@ const Navbar = () => {
   const userId = getUserIdFromToken();
   const dispatch = useDispatch();
 
-  // Select cart items and counter from Redux store
   const cartItems = useSelector((state) => state.cart.cartItems || []);
-  const cartCounter = useSelector((state) => state.cart.counter); // Use counter from the state
+  const cartCounter = useSelector((state) => state.cart.counter); 
 
   useEffect(() => {
     if (userId) {
@@ -36,7 +35,6 @@ const Navbar = () => {
     router.push(`/profile/${userId}`);
   };
 
-  // Blink state to control the animation
   const [blink, setBlink] = useState(false);
 
   return (

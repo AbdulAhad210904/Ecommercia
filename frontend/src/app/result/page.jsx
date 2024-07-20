@@ -8,7 +8,7 @@ import axios from 'axios';
 
 const ResultPage = ({ searchParams }) => {
   const dispatch = useDispatch();
-  const userId = getUserIdFromToken(); // Get the user ID from the token
+  const userId = getUserIdFromToken(); 
 
   const session_id = searchParams.session_id;
   const [session, setSession] = useState(null);
@@ -17,7 +17,6 @@ const ResultPage = ({ searchParams }) => {
   useEffect(() => {
     if (session_id) {
       dispatch(clearCart(userId));
-      // Fetch the session details from your backend
       const fetchSession = async () => {
         try {
           const response = await axios.get(`http://localhost:8080/api/checkout-session/${session_id}`);

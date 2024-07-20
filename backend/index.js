@@ -8,10 +8,9 @@ const authRoutes = require("./routes/auth");
 const cartRoutes = require("./routes/cartRoutes");
 const stripeRouter = require('./routes/stripe');
 
-// database connection
+// database from db.js file
 connection();
 
-// middlewares
 app.use(express.json());
 app.use(cors());
 

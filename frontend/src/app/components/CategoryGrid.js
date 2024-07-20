@@ -15,7 +15,6 @@ const CategoryGrid = ({ title, categories, onClick }) => {
   };
 
   useEffect(() => {
-    // Load initial dark mode state from local storage or system preference
     const isDarkMode = localStorage.getItem('darkMode') === 'true';
     setDarkMode(isDarkMode);
     if (isDarkMode) {

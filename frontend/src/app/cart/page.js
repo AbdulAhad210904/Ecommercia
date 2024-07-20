@@ -6,7 +6,7 @@ import requireAuth from '../../../requireAuth';
 
 const CartPage = () => {
   return (
-    <div className="bg-gray-100"> {/* Apply bg-gray-100 here */}
+    <div className="bg-gray-100"> 
       <Navbar />
       <Cart />
     </div>

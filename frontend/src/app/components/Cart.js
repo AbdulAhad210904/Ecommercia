@@ -20,7 +20,6 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    // Load initial dark mode state from local storage or system preference
     const isDarkMode = localStorage.getItem('darkMode') === 'true';
     setDarkMode(isDarkMode);
     if (isDarkMode) {
@@ -35,7 +34,7 @@ const Cart = () => {
 
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cartItems || []);
-  const userId = getUserIdFromToken(); // Get the user ID from the token
+  const userId = getUserIdFromToken(); 
   const [userEmail, setUserEmail] = useState(null);
 
   useEffect(() => {
@@ -43,7 +42,7 @@ const Cart = () => {
       try {
         const response = await fetch(`/api/fetchUser?userId=${userId}`);
         const userData = await response.json();
-        setUserEmail(userData.email); // Update userEmail using useState
+        setUserEmail(userData.email); 
         // toast.success(`useremail: ${userData.email}`);
       } catch (error) {
         console.error('Error fetching user data:', error);

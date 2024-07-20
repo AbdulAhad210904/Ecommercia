@@ -18,7 +18,7 @@ const Home = () => {
   }, [router]);
 
   if (!isAuthenticated) {
-    return null; // Return null while redirecting to avoid flashing content
+    return null; 
   }
 
   return (
