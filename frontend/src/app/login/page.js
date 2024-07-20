@@ -1,7 +1,8 @@
 "use client";
-import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { signIn } from 'next-auth/react';
+import Link from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -9,7 +10,7 @@ const Login = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
   });
 
   const handleChange = (e) => {
@@ -29,17 +30,17 @@ const Login = () => {
       const result = await response.json();
       if (response.ok) {
         toast.success('Logged in successfully!');
-        localStorage.setItem('token', result.data);   
+        localStorage.setItem('token', result.data);
         setTimeout(() => {
           router.push('/');
         }, 1000);
-        
       } else {
         toast.error(result.message);
       }
     } catch (error) {
       console.error('Error:', error);
-      toast.error('An error occurred, please try again later.');}
+      toast.error('An error occurred, please try again later.');
+    }
   };
 
   return (
@@ -66,10 +67,27 @@ const Login = () => {
               </div>
               
               <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-white border border-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:border-blue-600">
-  Sign in
-</button>
+                Sign in
+              </button>
+
+              <button
+                type="button"
+                onClick={() => signIn('github')}
+                className="w-full bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-white border border-gray-800 dark:bg-gray-800 dark:hover:bg-gray-900 dark:focus:ring-gray-600"
+              >
+                Sign in with GitHub
+              </button>
+
+              <button
+                type="button"
+                onClick={() => signIn('google')}
+                className="w-full bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center text-white border border-red-600 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-500"
+              >
+                Sign in with Google
+              </button>
+
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Don’t have an account yet? <Link href="/signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</ Link>
+                Don’t have an account yet? <Link href="/signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>
               </p>
             </form>
           </div>

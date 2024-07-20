@@ -1,19 +1,22 @@
 // authUtils.js
 "use client";
 export const getUserIdFromToken = () => {
-  const token = localStorage.getItem('token'); // Ensure the key matches your storage
-  if (token) {
-    try {
-      const decoded = parseJwt(token);
-      return decoded._id; // Extract the user ID from the token
-    } catch (error) {
-      console.error('Error decoding token:', error);
+  if (typeof window !== 'undefined') {
+    const token = localStorage.getItem('token'); 
+    if (token) {
+      try {
+        const decoded = parseJwt(token);
+        return decoded._id; // Extract the user id from token
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        return null;
+      }
+    } else {
+      console.error('No token found in local storage');
       return null;
     }
-  } else {
-    console.error('No token found in local storage');
-    return null;
   }
+
 };
 
 function parseJwt(token) {

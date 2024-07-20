@@ -23,8 +23,8 @@ const Home = () => {
 
   return (
     <div>
-      {/* <Main /> */}
-      <Check />
+      <Main />
+      {/* <Check /> */}
     </div>
   );
 };

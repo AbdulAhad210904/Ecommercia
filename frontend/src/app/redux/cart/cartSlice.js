@@ -9,7 +9,6 @@ const initialState = {
   counter: 0,
 };
 
-// Helper function to safely access localStorage
 const getLocalStorageCounter = () => {
   if (typeof window !== 'undefined') {
     return Number(localStorage.getItem('cartCounter')) || 0;
@@ -34,7 +33,6 @@ const cartSlice = createSlice({
         state.loading = false;
         state.lastUpdated = new Date().toISOString();
         if (typeof window !== 'undefined') {
-          // Update counter and localStorage only on the client side
           if (state.cartItems.items.length === state.counter) {
             state.counter = state.counter;
           } else {
@@ -54,7 +52,6 @@ const cartSlice = createSlice({
         state.cartItems = action.payload;
         state.loading = false;
         if (typeof window !== 'undefined') {
-          // Update counter and localStorage only on the client side
           state.counter = state.cartItems.length;
           localStorage.setItem('cartCounter', state.counter);
         }
@@ -70,7 +67,6 @@ const cartSlice = createSlice({
         state.cartItems = action.payload;
         state.loading = false;
         if (typeof window !== 'undefined') {
-          // Update counter and localStorage only on the client side
           state.counter = state.cartItems.length;
           localStorage.setItem('cartCounter', state.counter);
         }
@@ -86,7 +82,6 @@ const cartSlice = createSlice({
         state.cartItems = action.payload;
         state.loading = false;
         if (typeof window !== 'undefined') {
-          // Update counter and localStorage only on the client side
           state.counter = state.cartItems.length;
           localStorage.setItem('cartCounter', state.counter);
         }
@@ -103,7 +98,6 @@ const cartSlice = createSlice({
         state.loading = false;
         state.counter = 0;
         if (typeof window !== 'undefined') {
-          // Update localStorage only on the client side
           localStorage.setItem('cartCounter', 0);
         }
       })
